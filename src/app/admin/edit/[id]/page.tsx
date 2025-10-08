@@ -1,19 +1,14 @@
-"use server";
 import path from "path";
 import { promises as fs } from "fs";
 import { redirect } from "next/navigation";
 import updateLink from "@/action/updateLink";
 
-type EditPageProps = {
-  params: {
-    id: string;
-  };
-  // É uma boa prática já incluir os searchParams, mesmo que não os use agora.
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
-
-export default async function EditPage({ params }: EditPageProps) {
-  const { id } = params;
+export default async function EditPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   let item;
 
   try {
