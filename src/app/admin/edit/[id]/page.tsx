@@ -4,7 +4,15 @@ import { promises as fs } from "fs";
 import { redirect } from "next/navigation";
 import updateLink from "@/action/updateLink";
 
-export default async function EditPage({ params }: { params: { id: string } }) {
+type EditPageProps = {
+  params: {
+    id: string;
+  };
+  // É uma boa prática já incluir os searchParams, mesmo que não os use agora.
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
+
+export default async function EditPage({ params }: EditPageProps) {
   const { id } = params;
   let item;
 
