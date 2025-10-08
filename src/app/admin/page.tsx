@@ -1,4 +1,5 @@
 import addLink from "@/action/linkActions";
+import AddButton from "../../components/admin/AddButton";
 
 export default function AdminPage() {
   return (
@@ -31,12 +32,7 @@ export default function AdminPage() {
             className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
-        >
-          Adicionar Link
-        </button>
+        <AddButton />
       </form>
     </div>
   );
