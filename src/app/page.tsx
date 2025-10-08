@@ -4,7 +4,7 @@ import Profile from "@/components/Profile";
 import LinkCard from "@/components/LinkCard";
 
 type BdData = {
-  id: number;
+  id: string;
   title: string;
   url: string;
 };
