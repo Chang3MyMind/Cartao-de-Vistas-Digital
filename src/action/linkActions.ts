@@ -3,7 +3,6 @@
 import { validateformSchema } from "@/schema/validateForm";
 import { promises as fs } from "fs";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
 
@@ -24,6 +23,4 @@ export default async function addLink(formdata: FormData) {
     console.log("Erro de validação:", err);
     return;
   }
-
-  redirect("/");
 }
