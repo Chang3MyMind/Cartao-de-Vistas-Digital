@@ -1,5 +1,6 @@
 import LinkCard from "@/components/LinkCard";
 import deleteLink from "@/action/deleteLink";
+import Link from "next/link";
 
 type LinkCardAdminProps = {
   id: string;
@@ -24,7 +25,9 @@ export default function LinkCardAdmin({ id, title, url }: LinkCardAdminProps) {
             Deletar
           </button>
         </form>
-        {/* Futuramente, um botão de "Editar" poderia ir aqui */}
+        <div className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+          <Link href={`/admin/edit/${id}`}>Editar</Link>
+        </div>
       </div>
     </div>
   );
