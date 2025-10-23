@@ -1,4 +1,4 @@
-import getBdData from "@/api/getBdData";
+import { getUserLinks } from "@/lib/data";
 
 import Profile from "@/components/Profile";
 import LinkCard from "@/components/LinkCard";
@@ -10,7 +10,7 @@ type BdData = {
 };
 
 export default async function Home() {
-  const data = await getBdData();
+  const data = await getUserLinks();
 
   return (
     <main className="min-h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">
