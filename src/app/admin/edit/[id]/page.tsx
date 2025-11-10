@@ -1,7 +1,6 @@
-import path from "path";
-import { promises as fs } from "fs";
-import { redirect } from "next/navigation";
+import { getUserLinks } from "@/lib/data";
 import updateLink from "@/action/updateLink";
+import { redirect } from "next/navigation";
 
 export default async function EditPage({
   params,
@@ -12,16 +11,13 @@ export default async function EditPage({
   let item;
 
   try {
-    const file = path.join(process.cwd(), "/bd.json");
-    const jsonData = await fs.readFile(file, "utf8");
-    const data = JSON.parse(jsonData);
+    const data = await getUserLinks();
     item = data.find((item: { id: string }) => item.id === id);
     if (!item) {
-      return redirect("/admin");
+      redirect("/admin");
     }
   } catch (err) {
     console.log("Error fetching item:", err);
-    redirect("/admin");
   }
 
   return (

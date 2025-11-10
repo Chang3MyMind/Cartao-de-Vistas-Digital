@@ -20,7 +20,7 @@ export default function LinkCardAdmin({ id, title, url }: LinkCardAdminProps) {
           <input type="hidden" name="id" value={id} />
           <button
             type="submit"
-            className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+            className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer"
           >
             Deletar
           </button>

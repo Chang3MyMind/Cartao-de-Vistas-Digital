@@ -1,7 +1,7 @@
 import addLink from "@/action/addLink";
 import AddButton from "../../components/admin/AddButton";
 import LinkCardAdmin from "@/components/admin/LinkCardAdmin";
-import getBdData from "@/api/getBdData";
+import { getUserLinks } from "@/lib/data";
 
 type BdData = {
   id: string;
@@ -10,10 +10,11 @@ type BdData = {
 };
 
 export default async function AdminPage() {
-  const data = await getBdData();
+  const data = await getUserLinks();
+
   return (
     <div className="min-h-screen justify-center items-center p-4 max-w-6xl mx-auto flex flex-col lg:flex-row gap-6">
-      <div className="w-full lg:w-80 flex ">
+      <div className="w-full lg:w-80 flex">
         <form
           action={addLink}
           className="w-full max-w-md bg-white shadow-md rounded-lg p-6"
