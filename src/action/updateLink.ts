@@ -1,33 +1,41 @@
 "use server";
 
-import path from "path";
-import { promises as fs } from "fs";
+import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
 export default async function updateLink(formData: FormData) {
-  const id = formData.get("id");
-  const title = formData.get("title");
-  const url = formData.get("url");
+  const id = formData.get("id") as string;
+  const title = formData.get("title") as string;
+  const url = formData.get("url") as string;
+
+  if (!id || !title || !url) {
+    console.error("Dados de formulário ausentes.");
+    return redirect("/admin");
+  }
+
+  let error;
 
   try {
-    const file = path.join(process.cwd(), "/bd.json");
-    const jsonData = await fs.readFile(file, "utf8");
-    const data = JSON.parse(jsonData);
-    const updatedData = data.map(
-      (item: { id: string; title: string; url: string }) => {
-        if (item.id === id) {
-          return { ...item, title: title, url: url };
-        }
-        return item;
-      }
-    );
-    await fs.writeFile(file, JSON.stringify(updatedData, null, 2));
-    revalidatePath("/admin");
-    revalidatePath("/");
-    redirect("/admin");
+    const supabase = await createClient();
+
+    const { error: updateError } = await supabase
+      .from("user_links")
+      .update({ title, url })
+      .eq("id", id);
+
+    error = updateError;
   } catch (err) {
-    console.error("Error updating link:", err);
-    redirect("/admin");
+    console.error("Erro de execução do Update:", err);
+    error = err as Error;
   }
+
+  if (error) {
+    console.error("Erro ao atualizar o link:", error);
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/");
+
+  redirect("/admin");
 }
